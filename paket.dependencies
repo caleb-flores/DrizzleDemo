@@ -1,0 +1,7 @@
+source https://nuget.org/api/v2
+
+nuget AWSSDK
+nuget FSharp.Configuration 0.5.1
+nuget FsPickler 1.0.16 framework: >= net45
+nuget fszmq 4.0.8 framework: >= net45
+nuget log4net
