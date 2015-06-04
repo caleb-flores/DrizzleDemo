@@ -1,4 +1,6 @@
-bin
+bin/*
+!bin/Debug/DrizzleCore.dll
+!bin/Debug/Drizzle.dll
 obj
 .DS_Store
 *.userprefs
