@@ -2,6 +2,9 @@
 
 Install the dependencies 
 -----------------------
+Install zmq:
+
+``brew install zmq``
 
 Install via paket, you need to be in the root directory:
 
