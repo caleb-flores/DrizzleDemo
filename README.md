@@ -15,7 +15,7 @@ In this Demo I made a topology with one Faucet and two gears as follow:
 ``Faucet(RandoWordsFaucet) -> Gear(FilterEvenWordGear) -> Gear(WordPrinterGear)``
 
   * RandomWordsFaucet will send random words in tuples (word,length) from a file to the Gear(FilterEvenWord)
-  * FilterEvenWord will receive random words but will only send the words when the length is even
+  * FilterEvenWord will receive random words but will send only the words when the length is even
   * WordPrinterGear this gear is going to receive a tuple (word,length) and will print a message
   
 The equivalent in storm will be:
