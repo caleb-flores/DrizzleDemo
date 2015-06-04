@@ -146,6 +146,8 @@ The computation expresion `workflow` has the methods:
 
 Running the Workflow as LocalCluster
 ----------------------------------------------
+At the moment the workflow only can run as Local cluster, because we will not know if a node is down.
+
 ```
     let localCluster = LocalCluster()
     localCluster.Start mywf
