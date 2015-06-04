@@ -99,10 +99,46 @@ Creating the workflow
 
 To create a Workflow we have 3 computation expressions named `workflow`,`gear` and `faucet`
 
-the computation expresion 'workflow' has the methods to help to create a Workflow:
-    * `name`: the name of the workflow
-    * `addFaucet` : which adds a faucet as node to the topology
-    * `AddGear`: which adds a gear as node to the topology
-    * `withConfig`: Receives a Map<string,string> with the configuration 
-    * `validate` : this method validates that the workflow is ok
-    
+The computation expresion `workflow` has the methods:
+ * `name`: the name of the workflow
+ * `addFaucet` : which recieves a DrizzleFaucet as parameter and  adds a faucet as node to the topology
+ * `AddGear`: which recieves a DrizzleGear as parameter and adds a gear as node to the topology
+ * `withConfig`: Receives a Map<string,string> with the configuration 
+ * `validate` : this method validates that the workflow is ok
+ 
+ `faucet` has method to create a DrizzleFaucet:
+ * `name` : the name of the Faucet
+ * `create`: this method recieves a instance of a class that implements  `IFaucet`
+ * `paralelism`: the number of faucet with this instance (Drizzle will create this number of copy)
+
+`gear` has the methods:
+ * `name` : the name of the Gear
+ * `create`: this method recieves a instance of a class that implements `IGear`
+ * `paralelism` : the number of gears with this instance (Drizzle will create this number of copy)
+ * `steams` : this is  a `list` with the endPoint where the gear will connect 
+ 
+
+```
+    let mywf = workflow {
+        name "mywf"
+        addFaucet(faucet{
+            name "random-word"
+            create (RandomWordsFaucet())
+            parallelism 1
+             })
+        addGear(gear{
+            name "filter-gear"
+            create (FilterEvenWordGear())
+            parallelism 1
+            streams [ Drizzle.Stream.shuffle "random-word" ]
+        })
+       
+        addGear(gear{
+            name "printer-gear"
+            create (WordPrinterGear())
+            parallelism 1
+            streams [ Drizzle.Stream.shuffle "filter-gear" ]
+        })
+        validate
+    }
+```
