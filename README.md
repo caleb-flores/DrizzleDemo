@@ -106,7 +106,7 @@ The computation expresion `workflow` has the methods:
  * `withConfig`: Receives a Map<string,string> with the configuration 
  * `validate` : this method validates that the workflow is ok
  
- `faucet` has method to create a DrizzleFaucet:
+`faucet` has method to create a DrizzleFaucet:
  * `name` : the name of the Faucet
  * `create`: this method recieves a instance of a class that implements  `IFaucet`
  * `paralelism`: the number of faucet with this instance (Drizzle will create this number of copy)
@@ -142,3 +142,16 @@ The computation expresion `workflow` has the methods:
         validate
     }
 ```
+
+
+Running the Workflow as LocalCluster
+----------------------------------------------
+```
+    let localCluster = LocalCluster()
+    localCluster.Start mywf
+
+    Threading.Thread.Sleep(TimeSpan.FromMinutes 1.0)
+    localCluster.Stop ()
+```
+
+
