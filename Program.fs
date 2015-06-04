@@ -8,27 +8,7 @@ open Drizzle.Tuple
 open Drizzle.LocalCluster
 open Drizzle.Stream
 
-(* 
 
-In this Demo I made a topology with one Faucet and two gears as follow:
-
-Faucet(RandoWordsFaucet) -> Gear(FilterEvenWordGear) -> Gear(WordPrinterGear)
-
-RandomWordsFaucet will send random words in tuples (word,length) from a file to the Gear(FilterEvenWord)
-
-FilterEvenWord will receive random words but will only send the words when the length is even
-
-WordPrinterGear this gear is going to receive a tuple (word,length) and will print a message
-
-
-=============== Faucet ============
-You need to create a class that implement IFaucet.
-This class will be the responsible to send data to 
-the gears suscribed.
-
-This class needs to be serializable.
-
-*)
 type RandomWordsFaucet()=
     let mutable words = [||]
     let random = new Random()
@@ -48,14 +28,7 @@ type RandomWordsFaucet()=
         member x.Open(config: Map<string,string>): unit = 
            words <- System.IO.File.ReadLines "../../Resources.txt" |> Seq.toArray
            ()
-(*
-================ Gears==================
 
-The Gears need to be serializable as well and implement the IGear interface 
-
-the gears could be conected to other gear or faucet to recieve data 
-
-*)
 type FilterEvenWordGear() =
     interface IGear with
         member x.Init(): unit = 
@@ -91,7 +64,6 @@ type WordPrinterGear() =
 
 [<EntryPoint>]
 let main argv = 
-
 
     let mywf = workflow {
         name "mywf"
